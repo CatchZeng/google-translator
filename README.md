@@ -4,13 +4,18 @@
 
 ## Install
 
-```shell
+```
 go get github.com/CatchZeng/google-translator
 ```
 
+## Features
+
+- [x] Translate text
+- [x] Translate file
+
 ## Usage
 
-```go
+```
 package main
 
 import (
@@ -27,5 +32,10 @@ func main() {
 	}
 	log.Printf("translated: %s", translatedText)
 	//translated: 你好，世界
+
+	err = translator.TranslateFile("./README.md", ".", "README_T.md", true, language.English, language.SimplifiedChinese)
+	if err != nil {
+		panic(err)
+	}
 }
 ```

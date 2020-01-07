@@ -13,4 +13,9 @@ func main() {
 		panic(err)
 	}
 	log.Printf("translated: %s", translatedText)
+
+	err = translator.TranslateFile("./README.md", ".", "README_T.md", true, language.English, language.SimplifiedChinese)
+	if err != nil {
+		panic(err)
+	}
 }
