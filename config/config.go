@@ -11,6 +11,7 @@ var Env *envs
 
 type envs struct {
 	GoogleURL string `env:"GOOGLE_URL" default:"https://translate.google.cn"`
+	ChunkSize int    `env:"CHUNK_SIZE" default:"5000"`
 }
 
 func init() {

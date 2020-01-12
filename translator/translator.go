@@ -7,7 +7,9 @@ import (
 	"os"
 	"path"
 
+	"github.com/CatchZeng/google-translator/config"
 	"github.com/CatchZeng/gutils/file"
+	"github.com/CatchZeng/gutils/strings"
 	"golang.org/x/text/language"
 )
 
@@ -42,14 +44,26 @@ func TranslateFile(src string, dstDir string, dstName string, override bool, fro
 	}
 
 	text := string(bytes)
-	translated, err := Translate(text, from, to)
-	if err != nil {
-		return err
+
+	chunks := strings.SplitToChunks(text, config.Env.ChunkSize)
+	if len(chunks) < 1 {
+		return errors.New("SplitToChunks error")
 	}
 
-	mode := file.Mode(src)
-	if err := file.WriteStringToFile(translated, dst, mode); err != nil {
-		return err
+	for index, val := range chunks {
+		translated, err := Translate(val, from, to)
+		if err != nil {
+			return err
+		}
+
+		if index == 0 {
+			mode := file.Mode(src)
+			if err := file.WriteStringToFile(translated, dst, mode); err != nil {
+				return err
+			}
+		} else {
+			file.AppendStringToFile(translated, dst)
+		}
 	}
 	return nil
 }

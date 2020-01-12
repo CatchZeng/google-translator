@@ -4,7 +4,7 @@
 
 ## Install
 
-```
+```shell
 go get github.com/CatchZeng/google-translator
 ```
 
@@ -12,10 +12,11 @@ go get github.com/CatchZeng/google-translator
 
 - [x] Translate text
 - [x] Translate file
+- [x] Without character length limit
 
 ## Usage
 
-```
+```go
 package main
 
 import (
